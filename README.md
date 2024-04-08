@@ -66,7 +66,7 @@ Logout the user after 30 minutes of inactivity, this time can be configured from
 
 - ### Session Expiry :
 
-Expire user session after 1hr of continuous usage - Using SetTimeoOut
+Expire user session after 1hr of continuous usage - Using SetTimeOut
 
 - ### Refresh Token :
 
