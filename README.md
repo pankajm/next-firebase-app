@@ -2,7 +2,19 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
-First, run the development server:
+First, clone the app using following command
+
+```bash
+git clone https://github.com/pankajm/next-firebase-app.git
+```
+
+then go to next-firebase-app directory and install necessary dependencies using following command
+
+```bash
+npm i
+```
+
+Then run the development server:
 
 ```bash
 npm run dev
@@ -12,23 +24,60 @@ yarn dev
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result. (The port may differ depending on current processes)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+# UI Interaction
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+You can see 3 tabs in Top Nav - Home, Profile and About. Home and About tabs are publicly accesible. Profile tab however needs authentication. Click on signin at the top right corner to authenticate using Google Auth Provider. Once logged in you can see your name, email and profile picture (public data) from Google.
 
-## Learn More
+# Implementation Details -
 
-To learn more about Next.js, take a look at the following resources:
+## Firebase Project Set up
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Go to the Firebase Console (https://console.firebase.google.com/).
+- Create a new project or select an existing one.
+- Go to Project Settings and note down your Firebase configuration (apiKey, authDomain, projectId, etc.).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Install Firebase SDK and Dependencies
 
-## Deploy on Vercel
+```bash
+npm install firebase
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Firebase configuration in Next.js
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+firebase is configured and initialize in firebase.js file in app directory.
+
+## Authentication UI Implementation
+
+Navbar has login, home, about, profile link. User must signin to see profile details.
+
+## User Session Management
+
+- Context is being used to manage authentication state globally.
+- User session is managed using default JWT (inside user object) returned from firebase authentication.
+- Firebase Auth's onAuthStateChanged method is used to listen for changes in authentication state and update the user's session accordingly.
+
+## Session Functionalities
+
+- ### User Idle -
+
+Logout the user after 30 minutes of inactivity, this time can be configured from constants.js. This has been achived using react idle timer library to get idle time.
+
+- ### Session Expiry -
+
+Expire user session after 1hr of continuous usage - Using SetTimeoOut
+
+- ### Refresh Token -
+
+Token will be refreshed after every 5 minutes. This is achieved using Firebase api -
+currentUser.getIdToken(true) // force refresh action
+
+## Display User Account Details
+
+- After a successful signin, fetch the user's account details using Firebase Auth's currentUser object.
+- Display the user's account details on profile page, Details include profile picture, name and email.
+
+## Error Logging
+
+- For assignment purpose erros have been logged on console however in ideal scenario error handling should be done in remote logging service like sentry in order to debug real time issues being faced by end users.
