@@ -1,4 +1,4 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This is a [Next.js v14](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
 
@@ -50,7 +50,7 @@ firebase is configured and initialize in firebase.js file in app directory.
 
 ## Authentication UI Implementation
 
-Navbar has login, home, about, profile link. User must signin to see profile details.
+Navbar has login, home, about, profile link. User must signin to see profile details. Tailwind's utility classes and DaisyUI components (Based on tailwind) are used for styling.
 
 ## User Session Management
 
