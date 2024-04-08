@@ -30,7 +30,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 You can see 3 tabs in Top Nav - Home, Profile and About. Home and About tabs are publicly accesible. Profile tab however needs authentication. Click on signin at the top right corner to authenticate using Google Auth Provider. Once logged in you can see your name, email and profile picture (public data) from Google.
 
-# Implementation Details -
+# Implementation Details 
 
 ## Firebase Project Set up
 
@@ -54,21 +54,21 @@ Navbar has login, home, about, profile link. User must signin to see profile det
 
 ## User Session Management
 
-- Context is being used to manage authentication state globally.
+- React Context api is being used to manage authentication state globally -  see AuthContext.js for more details.
 - User session is managed using default JWT (inside user object) returned from firebase authentication.
 - Firebase Auth's onAuthStateChanged method is used to listen for changes in authentication state and update the user's session accordingly.
 
 ## Session Functionalities
 
-- ### User Idle -
+- ### User Idle :
 
 Logout the user after 30 minutes of inactivity, this time can be configured from constants.js. This has been achived using react idle timer library to get idle time.
 
-- ### Session Expiry -
+- ### Session Expiry :
 
 Expire user session after 1hr of continuous usage - Using SetTimeoOut
 
-- ### Refresh Token -
+- ### Refresh Token :
 
 Token will be refreshed after every 5 minutes. This is achieved using Firebase api -
 currentUser.getIdToken(true) // force refresh action
